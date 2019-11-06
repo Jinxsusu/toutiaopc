@@ -5,7 +5,7 @@
         <img src="../../assets/img/logo_index.png" alt />
       </div>
       <!--登录表单  绑定整个表单-->
-      <el-form ref="loginRules" :model="fromData" :rules="loginRules" class="from">
+      <el-form ref="fromData" :model="fromData" :rules="loginRules" class="from">
         <el-form-item prop="mobile">
           <el-input placeholder="请输入手机号" v-model="fromData.mobile"></el-input>
         </el-form-item>
@@ -37,8 +37,8 @@ export default {
     }
     return {
       fromData: {
-        mobile: '',
-        code: '',
+        mobile: '13811111111',
+        code: '246810',
         check: false
       },
       // 校验规则
@@ -68,9 +68,32 @@ export default {
       }
     }
   },
-  method: {
+  methods: {
     login () {
+      this.$refs.fromData.validate(isOk => {
+        if (isOk) {
+          // 如果整体表单验证成功发送请求登录
+          this.$axios({
+            url: '/mp/v1_0/authorizations',
+            method: 'POST',
+            data: this.fromData
+          }).then(result => {
+            // console.log(result)
+            // 把token令牌放在前端储存中
+            // console.log(result.data.data.token)
+            window.localStorage.setItem('token', result.data.data.token)
+            // 跳转到首页
+            this.$router.push('/')
+          }).catch(() => {
+            this.$message({
+              message: '手机号或验证码有误',
+              type: 'warning'
+            })
+          })
+        }
+      }
 
+      )
     }
   }
 }

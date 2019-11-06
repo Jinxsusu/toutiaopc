@@ -6,7 +6,7 @@ import ElementUI from 'element-ui'// 引入elementUI组件库
 import 'element-ui/lib/theme-chalk/index.css'// 引入组件库的样式
 import './style/index.less' // 引入初始化样式
 
-axios.defaults.baseURl = 'http://ttapi.research.itcast.cn' // 配置axios的baseURL
+axios.defaults.baseURL = 'http://ttapi.research.itcast.cn' // 配置axios的baseURL
 Vue.prototype.$axios = axios // 给Vue对象原型属性赋值,那么所有的vue实例自动拥有$axios
 
 Vue.config.productionTip = false
