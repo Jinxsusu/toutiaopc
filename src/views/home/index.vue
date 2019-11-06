@@ -1,10 +1,12 @@
 <template>
   <el-container>
-    <el-aside>
+    <el-aside style="width:200px">
       <layout-aside/>
     </el-aside>
     <el-container>
-      <el-header>我是主体的头部</el-header>
+      <el-header>
+        <layout-header/>
+      </el-header>
       <el-main>我是主体</el-main>
     </el-container>
   </el-container>
