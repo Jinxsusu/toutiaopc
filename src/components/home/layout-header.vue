@@ -31,13 +31,11 @@ export default {
   },
   methods: {
     getUserInfo () {
-      let token = window.localStorage.getItem('user-token')// 获取token
       this.$axios({
-        url: '/mp/v1_0/user/profile',
-        headers: { 'Authorization': `Bearer ${token}` }
+        url: '/mp/v1_0/user/profile'
       }).then(res => {
-        console.log(res.data)
-        this.userInfo = res.data.data
+        // console.log(res.data)
+        this.userInfo = res.data
       })
     },
     // 点击下拉菜单触发的方法

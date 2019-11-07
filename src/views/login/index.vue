@@ -80,20 +80,12 @@ export default {
           }).then(result => {
             // console.log(result)
             // 把token令牌放在前端储存中
-            // console.log(result.data.data.token)
-            window.localStorage.setItem('user-token', result.data.data.token)
+            window.localStorage.setItem('user-token', result.data.token)
             // 跳转到首页
             this.$router.push('/')
-          }).catch(() => {
-            this.$message({
-              message: '手机号或验证码有误',
-              type: 'warning'
-            })
           })
         }
-      }
-
-      )
+      })
     }
   }
 }
