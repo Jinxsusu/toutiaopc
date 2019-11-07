@@ -5,16 +5,16 @@
       <span>江苏传智博客教育科技股份有限公司</span>
     </el-col>
     <el-col class="right" :span="3">
-      <img src="../../assets/img/avatar.jpg" alt />
-      <el-dropdown trigger="click">
+      <img :src="userInfo.photo ? userInfo.photo :defaultImg" alt />
+      <el-dropdown trigger="click" @command='handleMenuItem'>
         <span class="el-dropdown-link">
-          苏苏
+          {{userInfo.name}}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>个人信息</el-dropdown-item>
-          <el-dropdown-item>Git地址</el-dropdown-item>
-          <el-dropdown-item>退出</el-dropdown-item>
+          <el-dropdown-item command='account'>个人信息</el-dropdown-item>
+          <el-dropdown-item command='git'>git地址</el-dropdown-item>
+          <el-dropdown-item command='lgout'>退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-col>
@@ -22,13 +22,48 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      userInfo: {},
+      defaultImg: require('../../assets/img/avatar.jpg')
+    }
+  },
+  methods: {
+    getUserInfo () {
+      let token = window.localStorage.getItem('user-token')// 获取token
+      this.$axios({
+        url: '/mp/v1_0/user/profile',
+        headers: { 'Authorization': `Bearer ${token}` }
+      }).then(res => {
+        console.log(res.data)
+        this.userInfo = res.data.data
+      })
+    },
+    // 点击下拉菜单触发的方法
+    handleMenuItem (command) {
+      if (command === 'account') {
+        // 账户信息
+        this.$router.push('/home/account')
+      } else if (command === 'git') {
+        window.location.href = 'https://github.com/shuiruohanyu/82heimatoutiao' // 改变当前的地址
+      } else if (command === 'lgout') {
+        // 退出
+        window.localStorage.clear() // 清空缓存 清除所有的缓存  只能清除自己当前项目的缓存
+        this.$router.push('/login') // 跳转到登录页
+      }
+    }
+  },
+  created () {
+    this.getUserInfo()
+  }
+}
 </script>
 
 <style scoped lang='less'>
 .layout-header {
   width: 100%;
-  padding: 8px 0;
+  padding: 10px 0;
   .left {
     display: block;
     align-items: center;

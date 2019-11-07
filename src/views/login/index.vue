@@ -37,7 +37,7 @@ export default {
     }
     return {
       fromData: {
-        mobile: '13811111111',
+        mobile: '15703219607',
         code: '246810',
         check: false
       },
@@ -81,7 +81,7 @@ export default {
             // console.log(result)
             // 把token令牌放在前端储存中
             // console.log(result.data.data.token)
-            window.localStorage.setItem('token', result.data.data.token)
+            window.localStorage.setItem('user-token', result.data.data.token)
             // 跳转到首页
             this.$router.push('/')
           }).catch(() => {
