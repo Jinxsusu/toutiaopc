@@ -11,11 +11,11 @@
     >
       <el-menu-item index="/">
         <i class="el-icon-s-home"></i>
-        <span>首页</span>
+        <span slot='title'>首页</span>
       </el-menu-item>
       <el-submenu index="1">
         <template slot="title">
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-s-order"></i>
           <span>内容管理</span>
         </template>
         <el-menu-item index="/home/publish">发布文章</el-menu-item>
@@ -50,7 +50,7 @@ export default {}
   width: 200px;
   background-color: #323745;
   text-align: center;
-  height: 100vh;
+height: 100%;
 }
 .title {
   padding: 15px;
