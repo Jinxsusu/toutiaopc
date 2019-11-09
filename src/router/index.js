@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Login from '../views//login'
 import Home from '../views/home/index.vue'
 import Main from '../views/home/main'
-
+import Comment from '@/views/comment'
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -23,6 +23,10 @@ export default new Router({
       children: [{
         path: '', // 默认的二级路由的地址
         component: Main
+      },
+      {
+        path: '/home/comment',
+        component: Comment
       }]
     }
   ]
