@@ -1,20 +1,20 @@
 <template>
-  <el-row class="layout-header" type="flex" justify='space-between'>
+  <el-row class="layout-header" type="flex" justify="space-between">
     <el-col class="left" :span="6">
       <i class="el-icon-s-unfold icon"></i>
       <span>江苏传智博客教育科技股份有限公司</span>
     </el-col>
     <el-col class="right" :span="3">
       <img :src="userInfo.photo ? userInfo.photo :defaultImg" alt />
-      <el-dropdown trigger="click" @command='handleMenuItem'>
+      <el-dropdown trigger="click" @command="handleMenuItem">
         <span class="el-dropdown-link">
           {{userInfo.name}}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command='account'>个人信息</el-dropdown-item>
-          <el-dropdown-item command='git'>git地址</el-dropdown-item>
-          <el-dropdown-item command='lgout'>退出</el-dropdown-item>
+          <el-dropdown-item command="account">个人信息</el-dropdown-item>
+          <el-dropdown-item command="git">git地址</el-dropdown-item>
+          <el-dropdown-item command="lgout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-col>
@@ -64,16 +64,20 @@ export default {
   padding: 10px 0;
   .left {
     display: block;
-    align-items: center;
+    width: 100%;
     .icon {
-      font-size: 22px;
+      font-size: 23px;
       margin-right: 3px;
+      vertical-align: middle;
+    }
+    span{
+        vertical-align: middle;
     }
   }
-  .right{
+  .right {
     display: flex;
     align-items: center;
-    img{
+    img {
       border-radius: 50%;
       margin-right: 5px;
       width: 40px;
