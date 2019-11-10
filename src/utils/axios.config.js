@@ -1,8 +1,16 @@
 // 处理axios拦截器 请求拦截器 响应拦截器
 import axios from 'axios'
 import router from '../router/permission'
-import { Message } from 'element-ui'
-axios.defaults.baseURL = 'http://ttapi.research.itcast.cn' // 配置axios的baseURL
+import { Message } from 'element-ui' // 配置axios的baseURL
+import jsonBigInt from 'json-bigint'
+
+axios.defaults.baseURL = 'http://ttapi.research.itcast.cn'// 使用json-bigint 包处理大数字
+
+axios.defaults.transformResponse = [function (data) {
+  // data 是响应回来的字符串
+
+  return data ? jsonBigInt.parse(data) : {}
+}]
 // 请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发起请求请做一些业务处理
@@ -13,7 +21,6 @@ axios.interceptors.request.use(function (config) {
 })
 // 响应拦截器
 axios.interceptors.response.use(function (response) {
-  debugger
   return response.data ? response.data : {}
 }, function (error) {
   let status = error.response.status
@@ -40,6 +47,6 @@ axios.interceptors.response.use(function (response) {
       break
   }
   Message({ type: 'warning', message })
-  return new Promise(function () {}) // 直接返回一个promise 表示错误已经被处理掉 相当于强行截止错误
+  return new Promise(function () { }) // 直接返回一个promise 表示错误已经被处理掉 相当于强行截止错误
 })
 export default axios

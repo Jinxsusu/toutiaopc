@@ -18,7 +18,7 @@
             size="small"
             :style="{color:obj.row.comment_status ? '#E6A23C':'#409EFF'}"
             @click="openOrClose(obj.row)"
-          >{{obj. row.comment_status ? '关闭评论' : '打开评论'}}</el-button>
+          >{{obj.row.comment_status ? '关闭评论' : '打开评论'}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -40,7 +40,7 @@ export default {
         this.$axios({
           method: 'PUT',
           url: '/mp/v1_0/comments/status',
-          params: { article_id: row.id },
+          params: { article_id: row.id.toString() },
           // 传递article_id 参数
           data: { allow_comment: !row.comment_status }
         // 取反 更改评论的状态
