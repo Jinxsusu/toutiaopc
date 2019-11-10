@@ -4,6 +4,7 @@ import Login from '../views//login'
 import Home from '../views/home/index.vue'
 import Main from '../views/home/main'
 import Comment from '@/views/comment'
+import Material from '@/views/material'
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -25,9 +26,15 @@ export default new Router({
         component: Main
       },
       {
+        name: 'comment',
         path: '/home/comment',
         component: Comment
-      }]
+      },
+      {
+        path: '/home/material',
+        component: Material
+      }
+      ]
     }
   ]
 })
