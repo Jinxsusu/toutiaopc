@@ -22,6 +22,16 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-row type="flex" justify="center" style="margin-top:20px">
+      <el-pagination
+        background
+        layout="slot,prev, pager, next"
+        :total="page.total"
+        prev-text="上一页"
+        next-text="下一页"
+        @current-change="changePage"
+      ></el-pagination>
+    </el-row>
   </el-card>
 </template>
 
@@ -29,10 +39,20 @@
 export default {
   data () {
     return {
-      list: []
+      loading: false,
+      list: [],
+      page: {
+        page: 1, // 当前页码
+        pageSize: 10, // 每页条数
+        total: 0 // 总条数
+      }
     }
   },
   methods: {
+    changePage (newPage) {
+      this.page.page = newPage
+      this.getComments() // 获取当前页码的数据
+    },
     // 打开或关闭评论
     openOrClose (row) {
       let message = row.comment_status ? '关闭' : '打开'
@@ -43,7 +63,7 @@ export default {
           params: { article_id: row.id.toString() },
           // 传递article_id 参数
           data: { allow_comment: !row.comment_status }
-        // 取反 更改评论的状态
+          // 取反 更改评论的状态
         }).then(res => {
           // 重新调用 获取评论的数据 重新调用,拉取数据
           this.getComments()
@@ -55,12 +75,19 @@ export default {
       return row.comment_status ? '正常' : '关闭'
     },
     getComments () {
+      this.loading = true
       this.$axios({
         url: '/mp/v1_0/articles',
-        params: { response_type: 'comment' }
+        params: {
+          response_type: 'comment',
+          per_page: this.page.pageSize,
+          page: this.page.page
+        }
       }).then(res => {
+        this.loading = false
         // console.log(res)
         this.list = res.data.results // 绑定数据
+        this.page.total = res.data.total_count
       })
     }
   },
